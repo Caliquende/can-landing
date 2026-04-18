@@ -89,6 +89,10 @@ a {
   white-space: nowrap;
 }
 
+.brand-short {
+  display: none;
+}
+
 .nav-links {
   align-items: center;
   display: flex;
@@ -181,11 +185,14 @@ p {
   margin-top: 0;
 }
 
-h1 {
+.hero-name {
+  display: grid;
+  gap: 0.08em;
   font-size: clamp(3rem, 8vw, 6.15rem);
   line-height: 0.96;
   margin-bottom: 1.25rem;
-  max-width: 13ch;
+  max-width: 10.8ch;
+  overflow-wrap: normal;
 }
 
 h2 {
@@ -393,8 +400,16 @@ a.contact-method:hover {
   }
 
   .brand {
-    max-width: 11rem;
-    overflow-wrap: anywhere;
+    max-width: 9rem;
+    overflow-wrap: normal;
+  }
+
+  .brand-full {
+    display: none;
+  }
+
+  .brand-short {
+    display: inline;
   }
 
   .nav-links {
@@ -414,8 +429,9 @@ a.contact-method:hover {
     padding: 4rem 1rem;
   }
 
-  h1 {
-    font-size: clamp(2.8rem, 15vw, 4rem);
+  .hero-name {
+    font-size: clamp(2.45rem, 12vw, 3.55rem);
+    max-width: 100%;
   }
 
   .hero-actions .button,

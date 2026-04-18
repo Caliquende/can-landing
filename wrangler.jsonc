@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "can-landing",
+  "name": "can-landing-page",
   "compatibility_date": "2026-04-18",
   "observability": {
     "enabled": true

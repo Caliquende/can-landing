@@ -62,6 +62,8 @@ const translations = {
       "A crypto spot trading bot built with an LLM-assisted development workflow, including technical scoring, market regime detection, risk controls, reconcile logic, and Telegram reporting.",
     "projects.automation.text":
       "Practice projects built with Python, Selenium, and Pytest, focused on readable structure, reusable components, and practical UI test coverage.",
+    "projects.marketplace.text":
+      "A bilingual multi-seller marketplace demo built with React, TypeScript, and a local Express API, featuring a customer storefront, product detail routes, and role-based dashboards for admin, seller, marketing, finance, and support flows.",
     "projects.academic.title": "Academic Projects",
     "contact.label": "Contact",
     "contact.title": "Let’s Connect",
@@ -134,6 +136,8 @@ const translations = {
       "LLM destekli geliştirme yaklaşımıyla kurduğum; teknik skorlama, market regime detection, risk kontrolleri, reconcile mantığı ve Telegram raporlama içeren kripto spot trading bot projesi.",
     "projects.automation.text":
       "Python, Selenium ve Pytest kullanarak geliştirdiğim; okunabilir yapı, yeniden kullanılabilir bileşenler ve pratik UI test kapsamına odaklanan otomasyon çalışmaları.",
+    "projects.marketplace.text":
+      "React, TypeScript ve yerel Express API ile oluşturulan; müşteri vitrini, ürün detay sayfası ve yönetici, satıcı, pazarlama, finans ve destek rolleri için yönetim panelleri içeren iki dilli ve çok satıcılı bir pazaryeri demosu.",
     "projects.academic.title": "Akademik Projeler",
     "contact.label": "İletişim",
     "contact.title": "Bağlantı Kuralım",

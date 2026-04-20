@@ -353,6 +353,43 @@ a.contact-method:hover {
   margin-bottom: 0;
 }
 
+.reference-card {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  max-width: 760px;
+  padding: 1.15rem;
+}
+
+.reference-card h2 {
+  margin-bottom: 0.9rem;
+}
+
+.reference-intro {
+  color: var(--muted);
+  display: grid;
+  gap: 0.45rem;
+  margin-bottom: 0;
+  max-width: 62ch;
+}
+
+.reference-name {
+  color: var(--text);
+  font-weight: 800;
+  margin-left: 0.18rem;
+}
+
+.reference-department {
+  display: block;
+}
+
+.reference-note {
+  color: var(--accent-2);
+  font-size: 0.95rem;
+  font-weight: 720;
+  margin: 0.9rem 0 0;
+}
+
 .contact-section {
   align-items: end;
   border-top: 1px solid var(--line);

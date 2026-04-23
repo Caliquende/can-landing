@@ -64,6 +64,8 @@ const translations = {
       "Practice projects built with Python, Selenium, and Pytest, focused on readable structure, reusable components, and practical UI test coverage.",
     "projects.marketplace.text":
       "A bilingual multi-seller marketplace demo built with React, TypeScript, and a local Express API, featuring a customer storefront, product detail routes, and role-based dashboards for admin, seller, marketing, finance, and support flows.",
+    "projects.researchflow.text":
+      "A local-first research application bridging Android with NotebookLM via a FastAPI bridge server, featuring real-time web research using OpenAI, Gemini, Groq, and OpenRouter for automated source collection and artifact generation.",
     "projects.academic.title": "Academic Projects",
     "contact.label": "Contact",
     "contact.title": "Let’s Connect",
@@ -138,6 +140,8 @@ const translations = {
       "Python, Selenium ve Pytest kullanarak geliştirdiğim; okunabilir yapı, yeniden kullanılabilir bileşenler ve pratik UI test kapsamına odaklanan otomasyon çalışmaları.",
     "projects.marketplace.text":
       "React, TypeScript ve yerel Express API ile oluşturulan; müşteri vitrini, ürün detay sayfası ve yönetici, satıcı, pazarlama, finans ve destek rolleri için yönetim panelleri içeren iki dilli ve çok satıcılı bir pazaryeri demosu.",
+    "projects.researchflow.text":
+      "Android cihazları FastAPI bridge sunucusu üzerinden NotebookLM ile bağlayan; OpenAI, Gemini, Groq ve OpenRouter kullanarak gerçek zamanlı web araştırması, otomatik kaynak toplama ve araştırma çıktıları üretme imkanı sunan yerel odaklı bir uygulama.",
     "projects.academic.title": "Akademik Projeler",
     "contact.label": "İletişim",
     "contact.title": "Bağlantı Kuralım",

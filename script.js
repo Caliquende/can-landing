@@ -66,7 +66,7 @@ const translations = {
       "A bilingual multi-seller marketplace demo built with React, TypeScript, and a local Express API, featuring a customer storefront, product detail routes, and role-based dashboards for admin, seller, marketing, finance, and support flows.",
     "projects.researchflow.text":
       "A local-first research application bridging Android with NotebookLM via a FastAPI bridge server, featuring real-time web research using OpenAI, Gemini, Groq, and OpenRouter for automated source collection and artifact generation.",
-    "projects.wastewise.text":
+    "projects.wastewisely.text":
       "A professional digital waste auditor for Windows built with Python, FastAPI, and pywebview. Features an offline-first architecture, smart classification of system bloat, heavy dependencies, and sensitive leaks, along with a native installer and UAC elevation support.",
     "projects.academic.title": "Academic Projects",
     "contact.label": "Contact",
@@ -144,7 +144,7 @@ const translations = {
       "React, TypeScript ve yerel Express API ile oluşturulan; müşteri vitrini, ürün detay sayfası ve yönetici, satıcı, pazarlama, finans ve destek rolleri için yönetim panelleri içeren iki dilli ve çok satıcılı bir pazaryeri demosu.",
     "projects.researchflow.text":
       "Android cihazları FastAPI bridge sunucusu üzerinden NotebookLM ile bağlayan; OpenAI, Gemini, Groq ve OpenRouter kullanarak gerçek zamanlı web araştırması, otomatik kaynak toplama ve araştırma çıktıları üretme imkanı sunan yerel odaklı bir uygulama.",
-    "projects.wastewise.text":
+    "projects.wastewisely.text":
       "Python, FastAPI ve pywebview ile geliştirilmiş, Windows için profesyonel bir dijital atık denetçisi. Çevrimdışı öncelikli mimari, sistem kalıntıları, ağır bağımlılıklar ve hassas veri sızıntılarının akıllı sınıflandırılması ile yerel yükleyici ve UAC yetki yükseltme desteği sunar.",
     "projects.academic.title": "Akademik Projeler",
     "contact.label": "İletişim",

@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Run a one-line script
+      run: echo "CI layer successfully initialized for Personal Landing Page"
+
+    - name: Validate HTML
+      run: |
+        # Simple check if index.html exists and is readable
+        if [ -f index.html ]; then
+          echo "index.html found"
+        else
+          echo "index.html missing"
+          exit 1
+        fi

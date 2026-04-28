@@ -61,7 +61,7 @@ const translations = {
     "projects.okx.text":
       "A crypto spot trading bot built with an LLM-assisted development workflow, including technical scoring, market regime detection, risk controls, reconcile logic, and Telegram reporting.",
     "projects.automation.text":
-      "Training repo covering API tests for JSONPlaceholder/DummyJSON with Requests and UI tests for SauceDemo with Selenium, Pytest, and Page Object Model.",
+      "Structured QA automation training repository covering API tests for JSONPlaceholder and DummyJSON with Requests/Pytest, and UI tests for SauceDemo with Selenium/Pytest and Page Object Model. Includes API client abstraction, config and test data layers, smoke/regression markers, JUnit reporting, and GitHub Actions CI.",
     "projects.marketplace.text":
       "A bilingual multi-seller marketplace demo built with React, TypeScript, and a local Express API, featuring a customer storefront, product detail routes, and role-based dashboards for admin, seller, marketing, finance, and support flows.",
     "projects.researchflow.text":
@@ -139,7 +139,7 @@ const translations = {
     "projects.okx.text":
       "LLM destekli geliştirme yaklaşımıyla kurduğum; teknik skorlama, market regime detection, risk kontrolleri, reconcile mantığı ve Telegram raporlama içeren kripto spot trading bot projesi.",
     "projects.automation.text":
-      "JSONPlaceholder/DummyJSON API testleri ve SauceDemo UI testleri içeren; Requests, Selenium, Pytest ve Page Object Model kullanan eğitim reposu.",
+      "Requests/Pytest ile JSONPlaceholder ve DummyJSON API testlerini, Selenium/Pytest ve Page Object Model ile SauceDemo UI testlerini kapsayan yapılandırılmış QA otomasyon eğitim deposu. API istemci soyutlama, konfigürasyon ve test verisi katmanları, smoke/regresyon marker'ları, JUnit raporlama ve GitHub Actions CI süreçlerini içerir.",
     "projects.marketplace.text":
       "React, TypeScript ve yerel Express API ile oluşturulan; müşteri vitrini, ürün detay sayfası ve yönetici, satıcı, pazarlama, finans ve destek rolleri için yönetim panelleri içeren iki dilli ve çok satıcılı bir pazaryeri demosu.",
     "projects.researchflow.text":

@@ -61,7 +61,7 @@ const translations = {
     "projects.okx.text":
       "A crypto spot trading bot built with an LLM-assisted development workflow, including technical scoring, market regime detection, risk controls, reconcile logic, and Telegram reporting.",
     "projects.automation.text":
-      "Structured QA automation training repository covering API tests for JSONPlaceholder and DummyJSON with Requests/Pytest, and UI tests for SauceDemo with Selenium/Pytest and Page Object Model. Includes API client abstraction, config and test data layers, smoke/regression markers, JUnit reporting, and GitHub Actions CI.",
+      "Layered UI/API automation portfolio built with Selenium, Pytest, requests, and GitHub Actions.<br><br>Includes SauceDemo UI tests with Page Object Model and BasePage, plus JSONPlaceholder and DummyJSON API tests with reusable client abstraction.<br><br><strong>Stack:</strong> Selenium, Pytest, requests, GitHub Actions<br><strong>UI:</strong> SauceDemo, POM, BasePage<br><strong>API:</strong> JSONPlaceholder, DummyJSON, reusable clients<br><strong>CI:</strong> Separate UI/API jobs, smoke/regression markers, JUnit XML reports",
     "projects.marketplace.text":
       "A bilingual multi-seller marketplace demo built with React, TypeScript, and a local Express API, featuring a customer storefront, product detail routes, and role-based dashboards for admin, seller, marketing, finance, and support flows.",
     "projects.researchflow.text":
@@ -139,7 +139,7 @@ const translations = {
     "projects.okx.text":
       "LLM destekli geliştirme yaklaşımıyla kurduğum; teknik skorlama, market regime detection, risk kontrolleri, reconcile mantığı ve Telegram raporlama içeren kripto spot trading bot projesi.",
     "projects.automation.text":
-      "Requests/Pytest ile JSONPlaceholder ve DummyJSON API testlerini, Selenium/Pytest ve Page Object Model ile SauceDemo UI testlerini kapsayan yapılandırılmış QA otomasyon eğitim deposu. API istemci soyutlama, konfigürasyon ve test verisi katmanları, smoke/regresyon marker'ları, JUnit raporlama ve GitHub Actions CI süreçlerini içerir.",
+      "Selenium, Pytest, requests ve GitHub Actions ile oluşturulmuş katmanlı UI/API otomasyon portfolyosu.<br><br>Page Object Model ve BasePage yapısıyla SauceDemo UI testlerini, ayrıca yeniden kullanılabilir istemci soyutlamasıyla JSONPlaceholder ve DummyJSON API testlerini içerir.<br><br><strong>Stack:</strong> Selenium, Pytest, requests, GitHub Actions<br><strong>UI:</strong> SauceDemo, POM, BasePage<br><strong>API:</strong> JSONPlaceholder, DummyJSON, yeniden kullanılabilir istemciler<br><strong>CI:</strong> Ayrı UI/API işleri, smoke/regression marker'ları, JUnit XML raporları",
     "projects.marketplace.text":
       "React, TypeScript ve yerel Express API ile oluşturulan; müşteri vitrini, ürün detay sayfası ve yönetici, satıcı, pazarlama, finans ve destek rolleri için yönetim panelleri içeren iki dilli ve çok satıcılı bir pazaryeri demosu.",
     "projects.researchflow.text":
@@ -184,7 +184,7 @@ function applyLanguage(language) {
   updateMetaTag('meta[property="og:description"]', getTranslation("ogDescription"));
 
   document.querySelectorAll("[data-i18n]").forEach((element) => {
-    element.textContent = getTranslation(element.dataset.i18n);
+    element.innerHTML = getTranslation(element.dataset.i18n);
   });
 
   document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {

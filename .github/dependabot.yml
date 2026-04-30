@@ -1,0 +1,16 @@
+# TR: Dependabot yapılandırması — GitHub Actions sürüm güncellemelerini izler.
+# EN: Dependabot configuration — monitors GitHub Actions version updates.
+version: 2
+updates:
+  # TR: GitHub Actions sürüm güncellemelerini haftalık kontrol eder.
+  # EN: Checks GitHub Actions version updates weekly.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "ci"
+      - "dependencies"
+    commit-message:
+      prefix: "ci"

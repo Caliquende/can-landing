@@ -25,3 +25,53 @@ jobs:
           echo "index.html missing"
           exit 1
         fi
+
+  # ──────────────────────────────────────────────────────────────
+  # TR: Güvenlik Taraması — statik dosyalarda gizli bilgi ve güvensiz yapılandırma kontrolü
+  # EN: Security Scan — checks static files for secrets and insecure configurations
+  # ──────────────────────────────────────────────────────────────
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    # TR: HTML/JS dosyalarında hardcoded API anahtarı veya token olmadığını kontrol eder.
+    # EN: Checks HTML/JS files for hardcoded API keys or tokens.
+    - name: Check for hardcoded secrets
+      run: |
+        echo "🔒 Scanning for hardcoded secrets in static files..."
+        FOUND=0
+        # TR: Yaygın gizli bilgi kalıplarını arar.
+        # EN: Searches for common secret patterns.
+        for pattern in "sk-" "api_key" "apiKey" "secret_key" "secretKey" "access_token" "password" "BEGIN RSA PRIVATE KEY" "BEGIN OPENSSH PRIVATE KEY"; do
+          if grep -rlI "$pattern" --include="*.html" --include="*.js" --include="*.css" . 2>/dev/null; then
+            echo "⚠️  Potential secret pattern found: $pattern"
+            FOUND=1
+          fi
+        done
+        if [ "$FOUND" -eq 0 ]; then
+          echo "✅ No hardcoded secrets detected."
+        else
+          echo "⚠️  Review flagged files above. These may be false positives."
+        fi
+
+    # TR: JavaScript dosyalarında güvensiz fonksiyon kullanımını (eval, innerHTML) kontrol eder.
+    # EN: Checks JavaScript files for unsafe function usage (eval, innerHTML).
+    - name: Check for unsafe JS patterns
+      run: |
+        echo "🔍 Scanning for unsafe JavaScript patterns..."
+        FOUND=0
+        for pattern in "eval(" "document.write(" "innerHTML.*="; do
+          if grep -rnI "$pattern" --include="*.js" . 2>/dev/null; then
+            echo "⚠️  Unsafe JS pattern found: $pattern"
+            FOUND=1
+          fi
+        done
+        if [ "$FOUND" -eq 0 ]; then
+          echo "✅ No unsafe JavaScript patterns detected."
+        else
+          echo "⚠️  Review flagged patterns above."
+        fi
+

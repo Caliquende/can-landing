@@ -44,3 +44,11 @@ Check the page after every content or style update:
 - Switch between English and Turkish.
 - Verify contact links and copy-to-clipboard behavior.
 - Confirm metadata in `index.html` still matches the current public profile.
+
+## Security
+
+This repository follows standard security practices for static sites:
+- **Dependabot:** Keeps GitHub Actions updated.
+- **Security Policy:** Outlined in [SECURITY.md](./SECURITY.md).
+- **Proactive Scanning:** Automated checks in CI for hardcoded secrets and unsafe JavaScript patterns.
+

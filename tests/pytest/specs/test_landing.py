@@ -209,14 +209,14 @@ def test_qa_section_details_are_visible(page):
     landing_page.goto()
 
     expect(landing_page.heading("Quality Assurance & Automated Testing")).to_be_visible()
-    expect(page.get_by_text("39 automated tests")).to_be_visible()
-    expect(page.get_by_text("Playwright Standalone")).to_be_visible()
-    expect(page.get_by_text("Selenium WebDriver")).to_be_visible()
+    expect(page.get_by_text("Testing Coverage:")).to_be_visible()
+    expect(page.get_by_text("Playwright Standalone (Python)")).to_be_visible()
+    expect(page.get_by_text("Selenium WebDriver (Regression)")).to_be_visible()
 
     landing_page.switch_language("TR")
 
     expect(landing_page.heading("Kalite Güvence ve Otomatik Testler")).to_be_visible()
-    expect(page.get_by_text("39 adet otomatik test")).to_be_visible()
+    expect(page.get_by_text("Test Kapsamı:")).to_be_visible()
 
 
 @pytest.mark.regression

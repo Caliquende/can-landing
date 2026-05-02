@@ -1,9 +1,20 @@
 import argparse
 import importlib
 import inspect
+import sys
 import traceback
+from pathlib import Path
 
 from playwright.sync_api import sync_playwright
+
+ROOT_DIR = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT_DIR))
+
+# Some environments ship a third-party `tests` module/package. Ensure we load ours.
+loaded_tests = sys.modules.get("tests")
+if loaded_tests and getattr(loaded_tests, "__file__", ""):
+    if str(ROOT_DIR) not in str(loaded_tests.__file__):
+        del sys.modules["tests"]
 
 from tests.playwright.config import settings
 

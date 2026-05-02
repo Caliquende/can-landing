@@ -16,8 +16,14 @@ The site itself has no build step and no runtime package manager dependency. Aut
 ├── style.css        # Responsive visual design
 ├── script.js        # Language switching, navigation, and small UI helpers
 ├── favicon.svg      # Site icon and static asset test target
-├── cv.md            # Local source CV/profile content (ignored)
-├── tests            # Pytest, pure Playwright, and pure Selenium browser test suites
+├── SECURITY.md      # Security policy and reporting guidelines
+├── tests            # Multi-engine browser test suites (Playwright, Pytest, Selenium)
+│   ├── shared/      # Shared data and logic layer (SST)
+│   │   ├── landing_data.py   # Test data (English/Turkish content)
+│   │   └── locators.py       # Centralized selectors (CSS/XPath)
+│   ├── playwright/  # Standalone Playwright suite (POM)
+│   ├── pytest/      # Pytest-based Playwright suite (POM)
+│   └── selenium/    # Standalone Selenium suite (POM)
 ├── .github          # Dependabot and CI workflow configuration
 ├── wrangler.jsonc   # Cloudflare Workers/Pages configuration
 ├── pyproject.toml   # Project configuration (pytest, flake8, etc.)
@@ -32,7 +38,7 @@ Open `index.html` directly in a browser.
 
 The repository is suitable for GitHub Pages, Netlify, Vercel, Cloudflare Pages, or any static hosting provider.
 
-Before publishing, keep the public page copy aligned with `cv.md` and verify both language modes.
+Before publishing, verify both language modes and all contact links.
 
 ## Validation
 

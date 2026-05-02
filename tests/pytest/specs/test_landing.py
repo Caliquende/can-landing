@@ -67,20 +67,18 @@ def test_switches_language_and_updates_visible_state(page):
 
 @pytest.mark.regression
 @pytest.mark.smoke
-def test_key_contact_and_external_links_are_configured(page):
+def test_key_contact_and_external_links_are_configured(
+    page, email_regex, linkedin_regex, github_regex
+):
     landing_page = LandingPage(page)
 
     landing_page.goto()
 
-    expect(landing_page.link("Email")).to_have_attribute(
-        "href", landing_data.LINKS["email"]
-    )
+    expect(landing_page.link("Email")).to_have_attribute("href", email_regex)
     expect(landing_page.link("LinkedIn").last).to_have_attribute(
-        "href", landing_data.LINKS["linkedin"]
+        "href", linkedin_regex
     )
-    expect(landing_page.link("GitHub")).to_have_attribute(
-        "href", landing_data.LINKS["github"]
-    )
+    expect(landing_page.link("GitHub")).to_have_attribute("href", github_regex)
 
     for link_name in ["LinkedIn", "GitHub"]:
         link = landing_page.link(link_name).last

@@ -15,10 +15,12 @@ The site itself has no build step and no runtime package manager dependency. Aut
 ├── index.html       # Page content, semantic structure, and metadata
 ├── style.css        # Responsive visual design
 ├── script.js        # Language switching, navigation, and small UI helpers
+├── favicon.svg      # Site icon and static asset test target
 ├── cv.md            # Local source CV/profile content (ignored)
 ├── tests            # Pytest, pure Playwright, and pure Selenium browser test suites
 ├── .github          # Dependabot and CI workflow configuration
 ├── wrangler.jsonc   # Cloudflare Workers/Pages configuration
+├── pyproject.toml   # Project configuration (pytest, flake8, etc.)
 └── README.md        # Project documentation
 ```
 
@@ -65,36 +67,53 @@ Selenium tests require a local Chrome installation. Selenium Manager handles dri
 Run smoke tests:
 
 ```powershell
+# Pytest (PYTHONPATH is handled by pyproject.toml)
 python -m pytest tests/pytest -c tests/pytest/pytest.ini -m smoke
-python tests/playwright/run_tests.py --suite smoke
-python tests/selenium/run_tests.py --suite smoke
+
+# Playwright Standalone ($env:PYTHONPATH="." for PowerShell, PYTHONPATH=. for Bash)
+$env:PYTHONPATH="."; python tests/playwright/run_tests.py --suite smoke
+
+# Selenium Standalone
+$env:PYTHONPATH="."; python tests/selenium/run_tests.py --suite smoke
 ```
 
 Run regression tests:
 
 ```powershell
+# Pytest
 python -m pytest tests/pytest -c tests/pytest/pytest.ini -m regression
-python tests/playwright/run_tests.py --suite regression
-python tests/selenium/run_tests.py --suite regression
+
+# Playwright Standalone
+$env:PYTHONPATH="."; python tests/playwright/run_tests.py --suite regression
+
+# Selenium Standalone
+$env:PYTHONPATH="."; python tests/selenium/run_tests.py --suite regression
 ```
 
 Run the full test suite:
 
 ```powershell
+# Pytest
 python -m pytest tests/pytest -c tests/pytest/pytest.ini
-python tests/playwright/run_tests.py
-python tests/selenium/run_tests.py
+
+# Playwright Standalone
+$env:PYTHONPATH="."; python tests/playwright/run_tests.py
+
+# Selenium Standalone
+$env:PYTHONPATH="."; python tests/selenium/run_tests.py
 ```
 
 Optional headed/browser UI runs:
 
 ```powershell
+# Pytest
 python -m pytest tests/pytest -c tests/pytest/pytest.ini --headed
-python -m pytest tests/pytest -c tests/pytest/pytest.ini -m smoke --headed
-python tests/playwright/run_tests.py --headed
-python tests/playwright/run_tests.py --suite smoke --headed
-python tests/selenium/run_tests.py --headed
-python tests/selenium/run_tests.py --suite smoke --headed
+
+# Playwright Standalone
+$env:PYTHONPATH="."; python tests/playwright/run_tests.py --headed
+
+# Selenium Standalone
+$env:PYTHONPATH="."; python tests/selenium/run_tests.py --headed
 ```
 
 CI runs smoke tests for all three suites against the checked-out files. Full regression runs are available through the commands above and are not run by default in CI.
@@ -105,8 +124,8 @@ Covered by automated tests:
 - Navigation bar anchor links target existing sections.
 - English/Turkish language switching updates visible state, document language, title, and meta description.
 - Key contact links for email, LinkedIn, and GitHub.
-- Basic mobile viewport smoke check.
-- Regression checks for metadata, translated text completeness, accessibility labels, project/reference visibility, static asset presence, and external link policy.
+- Mobile and Tablet viewport smoke checks.
+- Regression checks for metadata (including og:image), translated text completeness, accessibility labels, project/reference visibility, static asset presence (css, js, favicon), and external link policy.
 
 Not covered by automated tests:
 

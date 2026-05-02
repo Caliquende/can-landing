@@ -1,42 +1,43 @@
 from tests.pytest.pages.base_page import BasePage
+from tests.shared import locators
 
 
 class LandingPage(BasePage):
     @property
     def main(self):
-        return self.page.locator("main")
+        return self.page.locator(locators.MAIN)
 
     @property
     def html(self):
-        return self.page.locator("html")
+        return self.page.locator(locators.HTML)
 
     @property
     def navigation(self):
-        return self.page.get_by_role("navigation")
+        return self.page.locator(locators.NAV)
 
     @property
     def nav_anchor_links(self):
-        return self.page.locator("nav a[href^='#']")
+        return self.page.locator(locators.NAV_ANCHOR_LINKS)
 
     @property
     def contact_section(self):
-        return self.page.locator("#contact")
+        return self.page.locator(locators.CONTACT_SECTION)
 
     @property
     def meta_description(self):
-        return self.page.locator('meta[name="description"]')
+        return self.page.locator(locators.META_DESCRIPTION)
 
     @property
     def og_title(self):
-        return self.page.locator('meta[property="og:title"]')
+        return self.page.locator(locators.OG_TITLE)
 
     @property
     def og_description(self):
-        return self.page.locator('meta[property="og:description"]')
+        return self.page.locator(locators.OG_DESCRIPTION)
 
     @property
     def og_image(self):
-        return self.page.locator('meta[property="og:image"]')
+        return self.page.locator(locators.OG_IMAGE)
 
     def section(self, section_id):
         return self.page.locator(f"#{section_id}")

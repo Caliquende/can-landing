@@ -12,16 +12,48 @@ The site itself has no build step and no runtime package manager dependency. Aut
 
 ```text
 .
-├── index.html       # Page content, semantic structure, and metadata
-├── style.css        # Responsive visual design
-├── script.js        # Language switching, navigation, and small UI helpers
-├── favicon.svg      # Site icon and static asset test target
-├── cv.md            # Local source CV/profile content (ignored)
-├── tests            # Pytest, pure Playwright, and pure Selenium browser test suites
-├── .github          # Dependabot and CI workflow configuration
-├── wrangler.jsonc   # Cloudflare Workers/Pages configuration
-├── pyproject.toml   # Project configuration (pytest, flake8, etc.)
-└── README.md        # Project documentation
+├── index.html
+├── style.css
+├── script.js
+├── favicon.svg
+├── SECURITY.md
+├── wrangler.jsonc
+├── pyproject.toml
+├── README.md
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+└── tests/
+    ├── shared/
+    │   └── landing_data.py       # Single source of truth for test data
+    ├── playwright/               # Standalone Playwright suite
+    │   ├── config/settings.py
+    │   ├── data/landing_data.py
+    │   ├── pages/
+    │   │   ├── base_page.py
+    │   │   └── landing_page.py
+    │   ├── specs/test_landing.py
+    │   ├── requirements.txt
+    │   └── run_tests.py
+    ├── pytest/                   # Pytest-based Playwright suite
+    │   ├── config/settings.py
+    │   ├── data/landing_data.py
+    │   ├── pages/
+    │   │   ├── base_page.py
+    │   │   └── landing_page.py
+    │   ├── specs/test_landing.py
+    │   ├── conftest.py
+    │   ├── pytest.ini
+    │   └── requirements.txt
+    └── selenium/                 # Standalone Selenium suite
+        ├── config/settings.py
+        ├── data/landing_data.py
+        ├── pages/
+        │   ├── base_page.py
+        │   └── landing_page.py
+        ├── specs/test_landing.py
+        ├── requirements.txt
+        └── run_tests.py
 ```
 
 ## Local Preview
@@ -32,7 +64,7 @@ Open `index.html` directly in a browser.
 
 The repository is suitable for GitHub Pages, Netlify, Vercel, Cloudflare Pages, or any static hosting provider.
 
-Before publishing, keep the public page copy aligned with `cv.md` and verify both language modes.
+Before publishing, verify both language modes and all contact links.
 
 ## Validation
 

@@ -76,6 +76,18 @@ const translations = {
     "contact.email": "Email",
     "contact.linkedin": "LinkedIn",
     "contact.github": "GitHub",
+    "qa.label": "Quality Assurance",
+    "qa.title": "Quality Assurance & Automated Testing",
+    "qa.text":
+      "This site is continuously validated by a suite of <strong>39 automated tests</strong> across multiple frameworks. Every deployment is checked for visual consistency, metadata accuracy, accessibility, and cross-platform reliability.",
+    "qa.engine.playwright": "Playwright Standalone (Python)",
+    "qa.engine.pytest": "Pytest + Playwright (SDET Architecture)",
+    "qa.engine.selenium": "Selenium WebDriver (Regression)",
+    "qa.features.label": "Testing Coverage:",
+    "qa.features.responsive": "Responsive Layout (Mobile/Tablet/Desktop)",
+    "qa.features.i18n": "Bilingual Content Sync (EN/TR)",
+    "qa.features.seo": "SEO & Open Graph Metadata",
+    "qa.features.assets": "Static Asset Integrity (Favicon, Links)",
   },
   tr: {
     metaTitle: "Hamdi Can Ernalbantoğulları | Yazılım Kalite Güvence | Test Mühendisi | SDET",
@@ -154,11 +166,23 @@ const translations = {
     "contact.email": "E-posta",
     "contact.linkedin": "LinkedIn",
     "contact.github": "GitHub",
+    "qa.label": "Kalite Güvence",
+    "qa.title": "Kalite Güvence ve Otomatik Testler",
+    "qa.text":
+      "Bu web sitesi, farklı framework'ler kullanılarak yazılmış <strong>39 adet otomatik test</strong> ile sürekli olarak doğrulanmaktadır. Her canlıya çıkış; görsel tutarlılık, meta veri doğruluğu, erişilebilirlik ve platformlar arası güvenilirlik açısından kontrol edilmektedir.",
+    "qa.engine.playwright": "Playwright Standalone (Python)",
+    "qa.engine.pytest": "Pytest + Playwright (SDET Mimarisi)",
+    "qa.engine.selenium": "Selenium WebDriver (Regresyon)",
+    "qa.features.label": "Test Kapsamı:",
+    "qa.features.responsive": "Duyarlı Tasarım (Mobil/Tablet/Masaüstü)",
+    "qa.features.i18n": "İki Dilli İçerik Senkronizasyonu (EN/TR)",
+    "qa.features.seo": "SEO ve Open Graph Meta Verileri",
+    "qa.features.assets": "Statik Varlık Kontrolü (Favicon, Linkler)",
   },
 };
 
 const languageButtons = document.querySelectorAll("[data-language-button]");
-const richTextKeys = new Set(["projects.automation.text"]);
+const richTextKeys = new Set(["projects.automation.text", "qa.text"]);
 
 let currentLanguage = "en";
 

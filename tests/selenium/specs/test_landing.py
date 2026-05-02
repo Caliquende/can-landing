@@ -191,6 +191,24 @@ def test_static_assets_exist_on_disk():
         assert asset_file.stat().st_size > 0
 
 
+def test_qa_section_details_are_visible(driver):
+    landing_page = LandingPage(driver)
+
+    landing_page.goto()
+
+    assert landing_page.heading("Quality Assurance & Automated Testing").is_displayed()
+    assert driver.find_element(
+        "xpath", "//*[contains(text(), '39 automated tests')]"
+    ).is_displayed()
+
+    landing_page.switch_language("TR")
+
+    assert landing_page.heading("Kalite Güvence ve Otomatik Testler").is_displayed()
+    assert driver.find_element(
+        "xpath", "//*[contains(text(), '39 adet otomatik test')]"
+    ).is_displayed()
+
+
 def test_external_links_use_expected_blank_target_policy(driver):
     landing_page = LandingPage(driver)
 

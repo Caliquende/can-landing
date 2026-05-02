@@ -67,20 +67,18 @@ def test_switches_language_and_updates_visible_state(page):
 
 @pytest.mark.regression
 @pytest.mark.smoke
-def test_key_contact_and_external_links_are_configured(page):
+def test_key_contact_and_external_links_are_configured(
+    page, email_regex, linkedin_regex, github_regex
+):
     landing_page = LandingPage(page)
 
     landing_page.goto()
 
-    expect(landing_page.link("Email")).to_have_attribute(
-        "href", landing_data.LINKS["email"]
-    )
+    expect(landing_page.link("Email")).to_have_attribute("href", email_regex)
     expect(landing_page.link("LinkedIn").last).to_have_attribute(
-        "href", landing_data.LINKS["linkedin"]
+        "href", linkedin_regex
     )
-    expect(landing_page.link("GitHub")).to_have_attribute(
-        "href", landing_data.LINKS["github"]
-    )
+    expect(landing_page.link("GitHub")).to_have_attribute("href", github_regex)
 
     for link_name in ["LinkedIn", "GitHub"]:
         link = landing_page.link(link_name).last
@@ -202,6 +200,23 @@ def test_static_assets_exist_on_disk(page):
 
         assert asset_file.is_file()
         assert asset_file.stat().st_size > 0
+
+
+@pytest.mark.regression
+def test_qa_section_details_are_visible(page):
+    landing_page = LandingPage(page)
+
+    landing_page.goto()
+
+    expect(landing_page.heading("Quality Assurance & Automated Testing")).to_be_visible()
+    expect(page.get_by_text("39 automated tests")).to_be_visible()
+    expect(page.get_by_text("Playwright Standalone")).to_be_visible()
+    expect(page.get_by_text("Selenium WebDriver")).to_be_visible()
+
+    landing_page.switch_language("TR")
+
+    expect(landing_page.heading("Kalite Güvence ve Otomatik Testler")).to_be_visible()
+    expect(page.get_by_text("39 adet otomatik test")).to_be_visible()
 
 
 @pytest.mark.regression

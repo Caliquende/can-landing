@@ -7,6 +7,7 @@ __pycache__
 playwright-report
 playwright-videos
 .auth
+chromedriver
 
 # wrangler files
 .wrangler

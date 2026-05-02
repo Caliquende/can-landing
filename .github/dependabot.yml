@@ -14,3 +14,39 @@ updates:
       - "dependencies"
     commit-message:
       prefix: "ci"
+
+  # TR: tests/pytest altındaki Python bağımlılıklarını haftalık kontrol eder.
+  # EN: Checks Python dependencies under tests/pytest weekly.
+  - package-ecosystem: "pip"
+    directory: "/tests/pytest"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "test"
+
+  # TR: tests/playwright altındaki Python bağımlılıklarını haftalık kontrol eder.
+  # EN: Checks Python dependencies under tests/playwright weekly.
+  - package-ecosystem: "pip"
+    directory: "/tests/playwright"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "test"
+
+  # TR: tests/selenium altındaki Python bağımlılıklarını haftalık kontrol eder.
+  # EN: Checks Python dependencies under tests/selenium weekly.
+  - package-ecosystem: "pip"
+    directory: "/tests/selenium"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "test"

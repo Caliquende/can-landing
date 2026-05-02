@@ -158,6 +158,7 @@ const translations = {
 };
 
 const languageButtons = document.querySelectorAll("[data-language-button]");
+const richTextKeys = new Set(["projects.automation.text"]);
 
 let currentLanguage = "en";
 
@@ -173,6 +174,47 @@ function updateMetaTag(selector, value) {
   }
 }
 
+function appendRichTextNode(fragment, text, strongActive) {
+  if (!text) {
+    return;
+  }
+
+  if (strongActive) {
+    const strong = document.createElement("strong");
+    strong.textContent = text;
+    fragment.appendChild(strong);
+    return;
+  }
+
+  fragment.appendChild(document.createTextNode(text));
+}
+
+function setRichText(element, value) {
+  const fragment = document.createDocumentFragment();
+  const tokenPattern = /(<br\s*\/?>|<\/?strong>)/gi;
+  let strongActive = false;
+  let lastIndex = 0;
+
+  for (const match of value.matchAll(tokenPattern)) {
+    appendRichTextNode(fragment, value.slice(lastIndex, match.index), strongActive);
+
+    const token = match[0].toLowerCase();
+
+    if (token.startsWith("<br")) {
+      fragment.appendChild(document.createElement("br"));
+    } else if (token === "<strong>") {
+      strongActive = true;
+    } else if (token === "</strong>") {
+      strongActive = false;
+    }
+
+    lastIndex = match.index + match[0].length;
+  }
+
+  appendRichTextNode(fragment, value.slice(lastIndex), strongActive);
+  element.replaceChildren(fragment);
+}
+
 function applyLanguage(language) {
   currentLanguage = language;
   document.documentElement.lang = language;
@@ -184,7 +226,15 @@ function applyLanguage(language) {
   updateMetaTag('meta[property="og:description"]', getTranslation("ogDescription"));
 
   document.querySelectorAll("[data-i18n]").forEach((element) => {
-    element.innerHTML = getTranslation(element.dataset.i18n);
+    const key = element.dataset.i18n;
+    const value = getTranslation(key);
+
+    if (richTextKeys.has(key)) {
+      setRichText(element, value);
+      return;
+    }
+
+    element.textContent = value;
   });
 
   document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {

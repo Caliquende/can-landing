@@ -6,7 +6,7 @@ Bilingual static personal landing page for Hamdi Can Ernalbantogullari's QA Engi
 
 This repository contains a deployment-ready single-page site built with plain HTML, CSS, and JavaScript. It includes English and Turkish content, profile summary sections, QA/SDET skill highlights, project cards, contact actions, and basic SEO/Open Graph metadata.
 
-There is no build step and no package manager dependency. The site can be opened directly in a browser or deployed as static files.
+The site itself has no build step and no runtime package manager dependency. Automated browser tests use Python dependencies under `tests/`.
 
 ## Repository Structure
 
@@ -15,20 +15,16 @@ There is no build step and no package manager dependency. The site can be opened
 ├── index.html       # Page content, semantic structure, and metadata
 ├── style.css        # Responsive visual design
 ├── script.js        # Language switching, navigation, and small UI helpers
-├── cv.md            # Source CV/profile content
+├── cv.md            # Local source CV/profile content (ignored)
+├── tests            # Pytest, pure Playwright, and pure Selenium browser test suites
+├── .github          # Dependabot and CI workflow configuration
 ├── wrangler.jsonc   # Cloudflare Workers/Pages configuration
 └── README.md        # Project documentation
 ```
 
 ## Local Preview
 
-Open `index.html` directly in a browser, or serve the folder with any static server:
-
-```powershell
-python -m http.server 8000
-```
-
-Then visit `http://localhost:8000`.
+Open `index.html` directly in a browser.
 
 ## Deployment
 
@@ -42,13 +38,87 @@ Check the page after every content or style update:
 
 - Open the page on desktop and mobile widths.
 - Switch between English and Turkish.
-- Verify contact links and copy-to-clipboard behavior.
+- Verify contact links and language-specific content.
 - Confirm metadata in `index.html` still matches the current public profile.
+
+## Testing
+
+This repository uses three separate Python browser test suites with mirrored smoke and regression coverage:
+
+- `tests/pytest`: pytest-run Playwright browser suite.
+- `tests/playwright`: pure Playwright Python runner.
+- `tests/selenium`: pure Selenium Python runner.
+
+The browser suites open the checked-out `index.html` directly through their suite-level settings files. No local server is required.
+
+Install dependencies:
+
+```powershell
+python -m pip install -r tests/pytest/requirements.txt
+python -m pip install -r tests/playwright/requirements.txt
+python -m pip install -r tests/selenium/requirements.txt
+python -m playwright install chromium
+```
+
+Selenium tests require a local Chrome installation. Selenium Manager handles driver resolution in supported environments.
+
+Run smoke tests:
+
+```powershell
+python -m pytest tests/pytest -c tests/pytest/pytest.ini -m smoke
+python tests/playwright/run_tests.py --suite smoke
+python tests/selenium/run_tests.py --suite smoke
+```
+
+Run regression tests:
+
+```powershell
+python -m pytest tests/pytest -c tests/pytest/pytest.ini -m regression
+python tests/playwright/run_tests.py --suite regression
+python tests/selenium/run_tests.py --suite regression
+```
+
+Run the full test suite:
+
+```powershell
+python -m pytest tests/pytest -c tests/pytest/pytest.ini
+python tests/playwright/run_tests.py
+python tests/selenium/run_tests.py
+```
+
+Optional headed/browser UI runs:
+
+```powershell
+python -m pytest tests/pytest -c tests/pytest/pytest.ini --headed
+python -m pytest tests/pytest -c tests/pytest/pytest.ini -m smoke --headed
+python tests/playwright/run_tests.py --headed
+python tests/playwright/run_tests.py --suite smoke --headed
+python tests/selenium/run_tests.py --headed
+python tests/selenium/run_tests.py --suite smoke --headed
+```
+
+CI runs smoke tests for all three suites against the checked-out files. Full regression runs are available through the commands above and are not run by default in CI.
+
+Covered by automated tests:
+
+- Page load and main section visibility.
+- Navigation bar anchor links target existing sections.
+- English/Turkish language switching updates visible state, document language, title, and meta description.
+- Key contact links for email, LinkedIn, and GitHub.
+- Basic mobile viewport smoke check.
+- Regression checks for metadata, translated text completeness, accessibility labels, project/reference visibility, static asset presence, and external link policy.
+
+Not covered by automated tests:
+
+- Pixel-perfect CSS/layout validation.
+- Third-party website availability.
+- Full CV/content parity checks.
+- Copy-to-clipboard behavior, because the current site does not implement that feature.
+- Full accessibility audits beyond basic landmark/control smoke checks.
 
 ## Security
 
 This repository follows standard security practices for static sites:
-- **Dependabot:** Keeps GitHub Actions updated.
+- **Dependabot:** Keeps GitHub Actions and Python test dependencies updated.
 - **Security Policy:** Outlined in [SECURITY.md](./SECURITY.md).
-- **Proactive Scanning:** Automated checks in CI for hardcoded secrets and unsafe JavaScript patterns.
-
+- **Blocking CI Scanning:** CI fails on common hardcoded secret and unsafe JavaScript patterns.

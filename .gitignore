@@ -1,5 +1,12 @@
 .sixth
 cv.md
+node_modules
+test-results
+__pycache__
+.pytest_cache
+playwright-report
+playwright-videos
+.auth
 
 # wrangler files
 .wrangler
@@ -7,3 +14,4 @@ cv.md
 !.dev.vars.example
 .env*
 !.env.example
+.repo-work

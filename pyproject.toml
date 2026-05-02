@@ -1,0 +1,10 @@
+[tool.pytest.ini_options]
+testpaths = ["tests/pytest/specs"]
+pythonpath = ["."]
+markers = [
+    "smoke: critical landing page browser smoke checks",
+    "regression: broader landing page browser regression checks",
+]
+
+[tool.flake8]
+max-line-length = 100

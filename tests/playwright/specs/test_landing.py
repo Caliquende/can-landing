@@ -187,6 +187,22 @@ def test_static_assets_exist_on_disk(page):
         assert asset_file.stat().st_size > 0
 
 
+def test_qa_section_details_are_visible(page):
+    landing_page = LandingPage(page)
+
+    landing_page.goto()
+
+    expect(landing_page.heading("Quality Assurance & Automated Testing")).to_be_visible()
+    expect(page.get_by_text("39 automated tests")).to_be_visible()
+    expect(page.get_by_text("Playwright Standalone")).to_be_visible()
+    expect(page.get_by_text("Selenium WebDriver")).to_be_visible()
+
+    landing_page.switch_language("TR")
+
+    expect(landing_page.heading("Kalite Güvence ve Otomatik Testler")).to_be_visible()
+    expect(page.get_by_text("39 adet otomatik test")).to_be_visible()
+
+
 def test_external_links_use_expected_blank_target_policy(page):
     landing_page = LandingPage(page)
 

@@ -421,6 +421,47 @@ a.contact-method:hover {
   grid-template-columns: minmax(0, 1fr) minmax(260px, 420px);
 }
 
+.qa-engines {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 2.5rem;
+}
+
+.qa-engine-card {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1.25rem;
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.qa-engine-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.qa-engine-card h3 {
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.qa-engine-card p {
+  font-size: 0.94rem;
+  margin-bottom: 0;
+}
+
+.qa-features {
+  margin-top: 2.5rem;
+}
+
+.qa-features-label {
+  color: var(--accent-2) !important;
+  font-weight: 850;
+  margin-bottom: 1rem !important;
+  text-transform: uppercase;
+}
+
 @media (max-width: 900px) {
   .nav {
     grid-template-columns: auto auto;
@@ -450,6 +491,10 @@ a.contact-method:hover {
   }
 
   .professional-reference-list {
+    grid-template-columns: 1fr;
+  }
+
+  .qa-engines {
     grid-template-columns: 1fr;
   }
 }

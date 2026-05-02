@@ -6,7 +6,7 @@ Bilingual static personal landing page for Hamdi Can Ernalbantogullari's QA Engi
 
 This repository contains a deployment-ready single-page site built with plain HTML, CSS, and JavaScript. It includes English and Turkish content, profile summary sections, QA/SDET skill highlights, project cards, contact actions, and basic SEO/Open Graph metadata.
 
-The site itself has no build step and no runtime package manager dependency. Automated browser tests use Python dependencies under `tests/`.
+The site itself has no build step and no runtime package manager dependency. Automated browser tests use Python dependencies under `tests/`. The landing page also features a dedicated **Quality Assurance** section that highlights its own automated test coverage and architecture.
 
 ## Repository Structure
 

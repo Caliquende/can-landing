@@ -1,10 +1,23 @@
 import argparse
 import importlib
 import inspect
+import os
+import sys
+import tempfile
 import traceback
+from pathlib import Path
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+
+ROOT_DIR = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT_DIR))
+
+# Some environments ship a third-party `tests` module/package. Ensure we load ours.
+loaded_tests = sys.modules.get("tests")
+if loaded_tests and getattr(loaded_tests, "__file__", ""):
+    if str(ROOT_DIR) not in str(loaded_tests.__file__):
+        del sys.modules["tests"]
 
 from tests.selenium.config import settings
 
@@ -38,10 +51,25 @@ def get_tests(selection):
 
 
 def create_driver(headed):
+    cache_root = Path(tempfile.gettempdir()) / "selenium"
+    cache_root.mkdir(parents=True, exist_ok=True)
+    os.environ.setdefault("SELENIUM_MANAGER_CACHE", str(cache_root))
+    os.environ.setdefault("SE_CACHE_PATH", str(cache_root))
+    os.environ.setdefault("XDG_CACHE_HOME", str(cache_root))
+
     options = Options()
 
     if not headed:
         options.add_argument("--headless=new")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--remote-debugging-port=0")
+        options.add_argument("--no-first-run")
+        options.add_argument("--no-default-browser-check")
+        profile_dir = Path(tempfile.gettempdir()) / "selenium-chrome-profile"
+        profile_dir.mkdir(parents=True, exist_ok=True)
+        options.add_argument(f"--user-data-dir={profile_dir}")
 
     width = settings.DESKTOP_VIEWPORT["width"]
     height = settings.DESKTOP_VIEWPORT["height"]

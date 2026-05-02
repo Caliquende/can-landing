@@ -79,7 +79,7 @@ const translations = {
     "qa.label": "Quality Assurance",
     "qa.title": "Quality Assurance & Automated Testing",
     "qa.text":
-      "This site is continuously validated by a suite of <strong>39 automated tests</strong> across multiple frameworks. Every deployment is checked for visual consistency, metadata accuracy, accessibility, and cross-platform reliability.",
+      "This site is supported by automated browser checks across Pytest, Playwright, and Selenium. The tests focus on page loading, navigation, bilingual content, metadata, key links, responsive viewport smoke checks, static assets, and basic accessibility signals.",
     "qa.engine.playwright": "Playwright Standalone (Python)",
     "qa.engine.pytest": "Pytest + Playwright (SDET Architecture)",
     "qa.engine.selenium": "Selenium WebDriver (Regression)",
@@ -169,7 +169,7 @@ const translations = {
     "qa.label": "Kalite Güvence",
     "qa.title": "Kalite Güvence ve Otomatik Testler",
     "qa.text":
-      "Bu web sitesi, farklı framework'ler kullanılarak yazılmış <strong>39 adet otomatik test</strong> ile sürekli olarak doğrulanmaktadır. Her canlıya çıkış; görsel tutarlılık, meta veri doğruluğu, erişilebilirlik ve platformlar arası güvenilirlik açısından kontrol edilmektedir.",
+      "Bu site; Pytest, Playwright ve Selenium kullanılarak hazırlanan otomatik tarayıcı kontrolleriyle desteklenmektedir. Testler; sayfa yüklemesi, navigasyon, iki dilli içerik, meta veriler, temel bağlantılar, responsive viewport smoke kontrolleri, statik varlıklar ve temel erişilebilirlik sinyallerine odaklanmaktadır.",
     "qa.engine.playwright": "Playwright Standalone (Python)",
     "qa.engine.pytest": "Pytest + Playwright (SDET Mimarisi)",
     "qa.engine.selenium": "Selenium WebDriver (Regresyon)",

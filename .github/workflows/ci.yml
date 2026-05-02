@@ -13,7 +13,7 @@ jobs:
       PYTHONPATH: "."
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - uses: actions/setup-python@v5
       with:
@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     # TR: HTML/JS dosyalarında hardcoded API anahtarı veya token olmadığını kontrol eder.
     # EN: Checks HTML/JS files for hardcoded API keys or tokens.

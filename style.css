@@ -644,6 +644,12 @@ button {
     padding-block: 3.5rem;
   }
 
+  /* The portrait only earns its space when it can sit beside the name.
+     Once the hero stacks, it is hidden so the page opens with the copy. */
+  .portrait {
+    display: none;
+  }
+
   .stats-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

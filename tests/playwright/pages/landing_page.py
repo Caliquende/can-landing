@@ -39,6 +39,10 @@ class LandingPage(BasePage):
     def og_image(self):
         return self.page.locator(locators.OG_IMAGE)
 
+    @property
+    def portrait(self):
+        return self.page.locator(locators.PORTRAIT_IMG)
+
     def section(self, section_id):
         return self.page.locator(f"#{section_id}")
 

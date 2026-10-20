@@ -43,6 +43,10 @@ class LandingPage(BasePage):
     def og_image(self):
         return self.driver.find_element(By.CSS_SELECTOR, locators.OG_IMAGE)
 
+    @property
+    def portrait(self):
+        return self.driver.find_element(By.CSS_SELECTOR, locators.PORTRAIT_IMG)
+
     def section(self, section_id):
         return self.driver.find_element(By.CSS_SELECTOR, f"#{section_id}")
 

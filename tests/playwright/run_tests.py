@@ -29,6 +29,7 @@ SMOKE_TESTS = {
     "test_key_contact_and_external_links_are_configured",
     "test_cv_download_and_portrait_are_wired_up",
     "test_mobile_viewport_keeps_primary_content_and_controls_visible",
+    "test_portrait_is_hidden_on_mobile_and_visible_on_desktop",
 }
 
 

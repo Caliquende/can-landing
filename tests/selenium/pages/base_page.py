@@ -14,3 +14,7 @@ class BasePage:
     @staticmethod
     def assert_visible(element):
         assert element.is_displayed()
+
+    @staticmethod
+    def assert_hidden(element):
+        assert not element.is_displayed()

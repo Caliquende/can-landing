@@ -254,3 +254,29 @@ def test_tablet_viewport_keeps_primary_content_visible(page):
     expect(landing_page.navigation).to_be_visible()
     expect(landing_page.main).to_be_visible()
     expect(landing_page.contact_section).to_be_visible()
+
+
+def _hero_boxes(page):
+    name = page.locator("h1.name").bounding_box()
+    portrait = page.locator("figure.portrait").bounding_box()
+    return name, portrait
+
+
+def test_portrait_sits_beside_the_name_on_desktop(page):
+    landing_page = LandingPage(page)
+
+    for width in (1089, 1280):
+        landing_page.set_viewport({"width": width, "height": 861})
+        landing_page.goto()
+        name, portrait = _hero_boxes(page)
+        assert portrait["x"] >= name["x"] + name["width"], width
+        assert portrait["y"] < name["y"] + name["height"], width
+
+
+def test_portrait_stacks_below_the_intro_on_mobile(page):
+    landing_page = LandingPage(page)
+
+    landing_page.set_viewport(settings.MOBILE_VIEWPORT)
+    landing_page.goto()
+    name, portrait = _hero_boxes(page)
+    assert portrait["y"] >= name["y"] + name["height"]

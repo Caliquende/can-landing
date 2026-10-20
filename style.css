@@ -265,6 +265,7 @@ button {
 
 .hero-grid {
   display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 3rem;
   align-items: center;
   padding-block: 5rem;
@@ -364,6 +365,14 @@ button {
   position: relative;
   width: min(16rem, 100%);
   margin-inline: auto;
+}
+
+.portrait-shadow {
+  position: absolute;
+  inset: 0;
+  transform: translate(0.75rem, 0.75rem);
+  border-radius: var(--radius);
+  background: var(--accent);
 }
 
 .portrait img {

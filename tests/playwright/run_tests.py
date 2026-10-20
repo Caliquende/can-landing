@@ -23,9 +23,11 @@ TEST_MODULE = "tests.playwright.specs.test_landing"
 
 SMOKE_TESTS = {
     "test_loads_page_and_renders_main_sections",
+    "test_opens_in_english_by_default",
     "test_navigation_bar_anchors_point_to_existing_sections",
     "test_switches_language_and_updates_visible_state",
     "test_key_contact_and_external_links_are_configured",
+    "test_cv_download_and_portrait_are_wired_up",
     "test_mobile_viewport_keeps_primary_content_and_controls_visible",
 }
 

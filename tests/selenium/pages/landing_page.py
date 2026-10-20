@@ -3,6 +3,8 @@ from selenium.webdriver.common.by import By
 from tests.selenium.pages.base_page import BasePage
 from tests.shared import locators
 
+LINK_XPATH_TPL = "//a[@aria-label='{name}' or contains(normalize-space(), '{name}')]"
+
 
 class LandingPage(BasePage):
     @property
@@ -54,10 +56,13 @@ class LandingPage(BasePage):
         return self.driver.find_element(By.XPATH, xpath)
 
     def link(self, name):
-        return self.driver.find_element(By.LINK_TEXT, name)
+        # Matches the visible text or an explicit aria-label (e.g. "Email").
+        selector = LINK_XPATH_TPL.format(name=name)
+        return self.driver.find_element(By.XPATH, selector)
 
     def links(self, name):
-        return self.driver.find_elements(By.LINK_TEXT, name)
+        selector = LINK_XPATH_TPL.format(name=name)
+        return self.driver.find_elements(By.XPATH, selector)
 
     def switch_language(self, language):
         self.language_button(language).click()

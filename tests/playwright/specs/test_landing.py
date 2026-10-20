@@ -17,6 +17,19 @@ def test_loads_page_and_renders_main_sections(page):
         expect(landing_page.section(section_id)).to_be_visible()
 
 
+def test_opens_in_english_by_default(page):
+    landing_page = LandingPage(page)
+
+    landing_page.goto()
+
+    lang_en = landing_data.LANGUAGE["english"]
+    expect(landing_page.html).to_have_attribute("lang", lang_en["code"])
+    expect(landing_page.html).to_have_attribute("data-language", lang_en["code"])
+    expect(landing_page.language_button("EN")).to_have_attribute("aria-pressed", "true")
+    expect(landing_page.language_button("TR")).to_have_attribute("aria-pressed", "false")
+    expect(page).to_have_title(lang_en["title"])
+
+
 def test_navigation_bar_anchors_point_to_existing_sections(page):
     landing_page = LandingPage(page)
 
@@ -78,6 +91,20 @@ def test_key_contact_and_external_links_are_configured(page):
 
         expect(link).to_have_attribute("target", "_blank")
         expect(link).to_have_attribute("rel", "noreferrer")
+
+
+def test_cv_download_and_portrait_are_wired_up(page):
+    landing_page = LandingPage(page)
+
+    landing_page.goto()
+
+    cv_link = landing_page.link("Download CV")
+    expect(cv_link).to_have_attribute("href", landing_data.CV_FILE)
+    expect(cv_link).to_have_attribute("download", "")
+
+    portrait = page.locator("img[alt='Hamdi Can Ernalbantoğulları']")
+    expect(portrait).to_be_visible()
+    expect(portrait).to_have_attribute("src", landing_data.PORTRAIT_FILE)
 
 
 def test_mobile_viewport_keeps_primary_content_and_controls_visible(page):
@@ -163,16 +190,33 @@ def test_project_cards_keep_expected_public_project_titles(page):
         expect(page.get_by_text(project_title, exact=True)).to_be_visible()
 
 
-def test_reference_sections_keep_expected_public_reference_names(page):
+def test_reference_note_is_visible_in_both_languages(page):
     landing_page = LandingPage(page)
 
     landing_page.goto()
 
-    expect(landing_page.heading("Professional References")).to_be_visible()
-    expect(landing_page.heading("Academic Reference")).to_be_visible()
+    expect(
+        page.get_by_text(landing_data.REFERENCE_NOTES["english"])
+    ).to_be_visible()
 
-    for reference_name in landing_data.REFERENCE_NAMES:
-        expect(page.get_by_text(reference_name, exact=True)).to_be_visible()
+    landing_page.switch_language("TR")
+
+    expect(
+        page.get_by_text(landing_data.REFERENCE_NOTES["turkish"])
+    ).to_be_visible()
+
+
+def test_tested_page_note_is_visible_in_both_languages(page):
+    landing_page = LandingPage(page)
+
+    landing_page.goto()
+
+    expect(page.get_by_text("$ pytest --all")).to_be_visible()
+    expect(page.get_by_text(landing_data.QA_NOTES["english"])).to_be_visible()
+
+    landing_page.switch_language("TR")
+
+    expect(page.get_by_text(landing_data.QA_NOTES["turkish"])).to_be_visible()
 
 
 def test_static_assets_exist_on_disk(page):
@@ -180,27 +224,11 @@ def test_static_assets_exist_on_disk(page):
 
     landing_page.goto()
 
-    for asset_path in ["style.css", "script.js", "favicon.svg"]:
+    for asset_path in landing_data.PAGE_ASSETS:
         asset_file = settings.ROOT_DIR / asset_path
 
         assert asset_file.is_file()
         assert asset_file.stat().st_size > 0
-
-
-def test_qa_section_details_are_visible(page):
-    landing_page = LandingPage(page)
-
-    landing_page.goto()
-
-    expect(landing_page.heading("Quality Assurance & Automated Testing")).to_be_visible()
-    expect(page.get_by_text("39 automated tests")).to_be_visible()
-    expect(page.get_by_text("Playwright Standalone")).to_be_visible()
-    expect(page.get_by_text("Selenium WebDriver")).to_be_visible()
-
-    landing_page.switch_language("TR")
-
-    expect(landing_page.heading("Kalite Güvence ve Otomatik Testler")).to_be_visible()
-    expect(page.get_by_text("39 adet otomatik test")).to_be_visible()
 
 
 def test_external_links_use_expected_blank_target_policy(page):
@@ -211,7 +239,7 @@ def test_external_links_use_expected_blank_target_policy(page):
     external_links = page.locator("a[target='_blank']")
     link_count = external_links.count()
 
-    assert link_count >= 3
+    assert link_count >= landing_data.MIN_EXTERNAL_LINKS
 
     for index in range(link_count):
         expect(external_links.nth(index)).to_have_attribute("rel", "noreferrer")

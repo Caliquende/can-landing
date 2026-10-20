@@ -15,6 +15,19 @@ def test_loads_page_and_renders_main_sections(driver):
         landing_page.assert_visible(landing_page.section(section_id))
 
 
+def test_opens_in_english_by_default(driver):
+    landing_page = LandingPage(driver)
+
+    landing_page.goto()
+
+    lang_en = landing_data.LANGUAGE["english"]
+    assert landing_page.html.get_attribute("lang") == lang_en["code"]
+    assert landing_page.html.get_attribute("data-language") == lang_en["code"]
+    assert landing_page.language_button("EN").get_attribute("aria-pressed") == "true"
+    assert landing_page.language_button("TR").get_attribute("aria-pressed") == "false"
+    assert lang_en["title"].search(driver.title)
+
+
 def test_navigation_bar_anchors_point_to_existing_sections(driver):
     landing_page = LandingPage(driver)
 
@@ -78,6 +91,22 @@ def test_key_contact_and_external_links_are_configured(driver):
         assert link.get_attribute("rel") == "noreferrer"
 
 
+def test_cv_download_and_portrait_are_wired_up(driver):
+    landing_page = LandingPage(driver)
+
+    landing_page.goto()
+
+    cv_link = landing_page.link("Download CV")
+    assert landing_data.CV_FILE.search(cv_link.get_attribute("href"))
+    assert cv_link.get_attribute("download") is not None
+
+    portrait = driver.find_element(
+        "css selector", "img[alt='Hamdi Can Ernalbantoğulları']"
+    )
+    assert portrait.is_displayed()
+    assert landing_data.PORTRAIT_FILE.search(portrait.get_attribute("src"))
+
+
 def test_mobile_viewport_keeps_primary_content_and_controls_visible(driver):
     landing_page = LandingPage(driver)
 
@@ -104,9 +133,7 @@ def test_metadata_updates_for_both_languages(driver):
     assert lang_en["description"].search(
         landing_page.og_description.get_attribute("content")
     )
-    assert landing_data.OG_IMAGE.search(
-        landing_page.og_image.get_attribute("content")
-    )
+    assert landing_data.OG_IMAGE.search(landing_page.og_image.get_attribute("content"))
 
     landing_page.switch_language("TR")
 
@@ -127,13 +154,12 @@ def test_translated_elements_do_not_render_empty_after_language_switches(driver)
 
     for language in ["TR", "EN"]:
         landing_page.switch_language(language)
-        js = (
-            "return Array.from(document.querySelectorAll('[data-i18n]'))"
-            ".filter((element) => !element.textContent.trim()).length"
-        )
-        empty_count = driver.execute_script(js)
+        elements = driver.find_elements("css selector", "[data-i18n]")
 
-        assert empty_count == 0
+        assert elements
+        assert all(
+            element.get_attribute("textContent").strip() for element in elements
+        )
 
 
 def test_accessibility_landmarks_and_labels_follow_language(driver):
@@ -141,21 +167,27 @@ def test_accessibility_landmarks_and_labels_follow_language(driver):
 
     landing_page.goto()
 
-    skip = driver.find_element("css selector", ".skip-link")
-    assert skip.get_dom_attribute("href") == "#main"
-    assert landing_page.navigation.get_attribute("aria-label") == "Primary navigation"
-    lang_sel = driver.find_element("css selector", "[aria-label='Language selection']")
-    assert lang_sel.is_displayed()
+    skip = driver.find_element(
+        "xpath", "//a[@aria-label='Skip to content' or normalize-space()='Skip to content']"
+    )
+    assert skip.get_attribute("href").endswith("#main")
+    assert driver.find_element("css selector", "nav[aria-label='Primary navigation']")
+    assert driver.find_element(
+        "css selector", "[role='group'][aria-label='Language selection']"
+    )
 
     landing_page.switch_language("TR")
 
-    skip_link = driver.find_element("css selector", ".skip-link")
-    assert skip_link.get_dom_attribute("href") == "#main"
-    text = driver.execute_script("return arguments[0].textContent.trim()", skip_link)
-    assert text == "İçeriğe geç"
-    assert landing_page.navigation.get_attribute("aria-label") == "Birincil navigasyon"
-    dil = driver.find_element("css selector", "[aria-label='Dil seçimi']")
-    assert dil.is_displayed()
+    skip_tr = driver.find_element(
+        "xpath", "//a[@aria-label='İçeriğe geç' or normalize-space()='İçeriğe geç']"
+    )
+    assert skip_tr.get_attribute("href").endswith("#main")
+    assert driver.find_element(
+        "css selector", "nav[aria-label='Birincil navigasyon']"
+    )
+    assert driver.find_element(
+        "css selector", "[role='group'][aria-label='Dil seçimi']"
+    )
 
 
 def test_project_cards_keep_expected_public_project_titles(driver):
@@ -164,49 +196,49 @@ def test_project_cards_keep_expected_public_project_titles(driver):
     landing_page.goto()
 
     for project_title in landing_data.PROJECT_TITLES:
-        el = driver.find_element("xpath", f"//*[normalize-space()='{project_title}']")
-        assert el.is_displayed()
+        element = driver.find_element("xpath", f"//*[normalize-space()='{project_title}']")
+        assert element.is_displayed()
 
 
-def test_reference_sections_keep_expected_public_reference_names(driver):
+def test_reference_note_is_visible_in_both_languages(driver):
     landing_page = LandingPage(driver)
 
     landing_page.goto()
 
-    assert landing_page.heading("Professional References").is_displayed()
-    assert landing_page.heading("Academic Reference").is_displayed()
+    note = driver.find_element("css selector", "[data-i18n='refNote']")
+    assert landing_data.REFERENCE_NOTES["english"].search(
+        note.get_attribute("textContent")
+    )
 
-    for reference_name in landing_data.REFERENCE_NAMES:
-        el = driver.find_element(
-            "xpath", f"//*[normalize-space()='{reference_name}']"
-        )
-        assert el.is_displayed()
+    landing_page.switch_language("TR")
+
+    assert landing_data.REFERENCE_NOTES["turkish"].search(
+        note.get_attribute("textContent")
+    )
+
+
+def test_tested_page_note_is_visible_in_both_languages(driver):
+    landing_page = LandingPage(driver)
+
+    landing_page.goto()
+
+    command = driver.find_element("xpath", "//*[contains(text(), '$ pytest --all')]")
+    assert command.is_displayed()
+
+    note = driver.find_element("css selector", "[data-i18n='qa']")
+    assert landing_data.QA_NOTES["english"].search(note.get_attribute("textContent"))
+
+    landing_page.switch_language("TR")
+
+    assert landing_data.QA_NOTES["turkish"].search(note.get_attribute("textContent"))
 
 
 def test_static_assets_exist_on_disk():
-    for asset_path in ["style.css", "script.js", "favicon.svg"]:
+    for asset_path in landing_data.PAGE_ASSETS:
         asset_file = settings.ROOT_DIR / asset_path
 
         assert asset_file.is_file()
         assert asset_file.stat().st_size > 0
-
-
-def test_qa_section_details_are_visible(driver):
-    landing_page = LandingPage(driver)
-
-    landing_page.goto()
-
-    assert landing_page.heading("Quality Assurance & Automated Testing").is_displayed()
-    assert driver.find_element(
-        "xpath", "//*[contains(text(), '39 automated tests')]"
-    ).is_displayed()
-
-    landing_page.switch_language("TR")
-
-    assert landing_page.heading("Kalite Güvence ve Otomatik Testler").is_displayed()
-    assert driver.find_element(
-        "xpath", "//*[contains(text(), '39 adet otomatik test')]"
-    ).is_displayed()
 
 
 def test_external_links_use_expected_blank_target_policy(driver):
@@ -215,7 +247,7 @@ def test_external_links_use_expected_blank_target_policy(driver):
     landing_page.goto()
 
     external_links = driver.find_elements("css selector", "a[target='_blank']")
-    assert len(external_links) >= 3
+    assert len(external_links) >= landing_data.MIN_EXTERNAL_LINKS
 
     for link in external_links:
         assert link.get_attribute("rel") == "noreferrer"

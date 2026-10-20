@@ -1,6 +1,19 @@
+from selenium.webdriver.support.ui import WebDriverWait
 from tests.selenium.config import settings
 from tests.selenium.data import landing_data
 from tests.selenium.pages.landing_page import LandingPage
+
+
+def _wait_for_intro(driver, selector, timeout=5):
+    """The hero fades in when the page loads; wait until that animation settles."""
+    WebDriverWait(driver, timeout).until(
+        lambda d: d.execute_script(
+            "var el = document.querySelector(arguments[0]);"
+            "return !!el && parseFloat(getComputedStyle(el).opacity) > 0.99;",
+            selector,
+        )
+    )
+
 
 
 def test_loads_page_and_renders_main_sections(driver):
@@ -100,10 +113,13 @@ def test_cv_download_and_portrait_are_wired_up(driver):
     assert landing_data.CV_FILE.search(cv_link.get_attribute("href"))
     assert cv_link.get_attribute("download") is not None
 
+    _wait_for_intro(driver, ".portrait")
+
     portrait = driver.find_element(
         "css selector", "img[alt='Hamdi Can Ernalbantoğulları']"
     )
     assert portrait.is_displayed()
+
     assert landing_data.PORTRAIT_FILE.search(portrait.get_attribute("src"))
 
 

@@ -99,6 +99,18 @@ button {
   font-weight: 400;
 }
 
+/* Fraunces is variable: large text reads best with the display-optical cut
+   (opsz 144), which keeps tails such as the j in "Projects" thin and clean
+   instead of knotting them into the stem. */
+.name,
+.h2,
+.cta,
+.stat-num {
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" 144;
+}
+
+
 .muted {
   color: var(--muted);
 }

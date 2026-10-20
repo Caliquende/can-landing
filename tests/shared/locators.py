@@ -12,3 +12,5 @@ OG_IMAGE = 'meta[property="og:image"]'
 # Templates
 LANGUAGE_BUTTON_TPL = "button[data-language-button='{lang}']"
 HEADING_XPATH_TPL = "//*[self::h1 or self::h2][contains(text(), '{name}')]"
+PORTRAIT = ".portrait"
+PORTRAIT_IMG = "img[alt='Hamdi Can Ernalbantoğulları']"

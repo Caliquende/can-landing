@@ -136,6 +136,21 @@ def test_mobile_viewport_keeps_primary_content_and_controls_visible(driver):
     landing_page.assert_visible(landing_page.contact_section)
 
 
+def test_portrait_is_hidden_on_mobile_and_visible_on_desktop(driver):
+    landing_page = LandingPage(driver)
+
+    landing_page.set_viewport(settings.MOBILE_VIEWPORT)
+    landing_page.goto()
+
+    landing_page.assert_hidden(landing_page.portrait)
+
+    landing_page.set_viewport(settings.DESKTOP_VIEWPORT)
+    landing_page.goto()
+
+    _wait_for_intro(driver, ".portrait")
+    landing_page.assert_visible(landing_page.portrait)
+
+
 def test_metadata_updates_for_both_languages(driver):
     landing_page = LandingPage(driver)
 

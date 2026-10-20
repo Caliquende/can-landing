@@ -134,6 +134,22 @@ def test_mobile_viewport_keeps_primary_content_and_controls_visible(page):
 
 
 @pytest.mark.regression
+@pytest.mark.smoke
+def test_portrait_is_hidden_on_mobile_and_visible_on_desktop(page):
+    landing_page = LandingPage(page)
+
+    landing_page.set_viewport(settings.MOBILE_VIEWPORT)
+    landing_page.goto()
+
+    expect(landing_page.portrait).not_to_be_visible()
+
+    landing_page.set_viewport(settings.DESKTOP_VIEWPORT)
+    landing_page.goto()
+
+    expect(landing_page.portrait).to_be_visible()
+
+
+@pytest.mark.regression
 def test_metadata_updates_for_both_languages(page):
     landing_page = LandingPage(page)
 

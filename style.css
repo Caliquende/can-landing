@@ -366,14 +366,6 @@ button {
   margin-inline: auto;
 }
 
-.portrait-shadow {
-  position: absolute;
-  inset: 0;
-  transform: translate(0.75rem, 0.75rem);
-  border-radius: var(--radius);
-  background: var(--accent);
-}
-
 .portrait img {
   position: relative;
   width: 100%;

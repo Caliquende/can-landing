@@ -293,3 +293,16 @@ def test_tablet_viewport_keeps_primary_content_visible(driver):
     landing_page.assert_visible(landing_page.navigation)
     landing_page.assert_visible(landing_page.main)
     landing_page.assert_visible(landing_page.contact_section)
+
+
+def test_turkish_page_opens_in_turkish_with_seo_tags(driver):
+    from selenium.webdriver.common.by import By
+
+    driver.get(settings.TR_URL)
+
+    assert driver.find_element(By.TAG_NAME, "html").get_attribute("lang") == "tr"
+    assert landing_data.LANGUAGE["turkish"]["title"].search(driver.title)
+    canonical = driver.find_element(By.CSS_SELECTOR, "link[rel=canonical]")
+    assert canonical.get_attribute("href") == "https://can.is-a.dev/tr/"
+    hreflang_en = driver.find_element(By.CSS_SELECTOR, "link[hreflang=en]")
+    assert hreflang_en.get_attribute("href") == "https://can.is-a.dev/"

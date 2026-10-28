@@ -268,3 +268,13 @@ def test_tablet_viewport_keeps_primary_content_visible(page):
     expect(landing_page.navigation).to_be_visible()
     expect(landing_page.main).to_be_visible()
     expect(landing_page.contact_section).to_be_visible()
+
+
+def test_turkish_page_opens_in_turkish_with_seo_tags(page):
+    page.goto(settings.TR_URL)
+
+    expect(page.locator("html")).to_have_attribute("lang", "tr")
+    expect(page).to_have_title(landing_data.LANGUAGE["turkish"]["title"])
+    expect(page.locator("link[rel=canonical]")).to_have_attribute("href", "https://can.is-a.dev/tr/")
+    expect(page.locator("link[hreflang=en]")).to_have_attribute("href", "https://can.is-a.dev/")
+    expect(page.locator("link[hreflang=x-default]")).to_have_attribute("href", "https://can.is-a.dev/")

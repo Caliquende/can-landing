@@ -111,7 +111,7 @@ def test_cv_download_and_portrait_are_wired_up(driver):
 
     cv_link = landing_page.link("Download CV")
     assert landing_data.CV_FILE.search(cv_link.get_attribute("href"))
-    assert cv_link.get_attribute("download") is not None
+    assert cv_link.get_attribute("download") == landing_data.CV_DOWNLOAD_NAME
 
     _wait_for_intro(driver, ".portrait")
 

@@ -46,6 +46,7 @@ QA_NOTES = {
 }
 
 CV_FILE = re.compile(r"assets/cv\.pdf$")
+CV_DOWNLOAD_NAME = "Hamdi Can Ernalbantogullari CV.pdf"
 PORTRAIT_FILE = re.compile(r"assets/can\.png$")
 
 PAGE_ASSETS = [

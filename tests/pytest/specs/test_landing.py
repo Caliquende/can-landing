@@ -111,7 +111,7 @@ def test_cv_download_and_portrait_are_wired_up(page):
 
     cv_link = landing_page.link("Download CV")
     expect(cv_link).to_have_attribute("href", landing_data.CV_FILE)
-    expect(cv_link).to_have_attribute("download", "")
+    expect(cv_link).to_have_attribute("download", landing_data.CV_DOWNLOAD_NAME)
 
     portrait = page.locator("img[alt='Hamdi Can Ernalbantoğulları']")
     expect(portrait).to_be_visible()

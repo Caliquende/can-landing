@@ -54,3 +54,7 @@ PYTHONPATH=. pytest tests/selenium
 ## Deployment
 
 The site is served as static assets by Cloudflare Pages through `wrangler.jsonc`. There is no build step; the repository root is the published directory.
+
+## Turkish page (SEO)
+
+`tr.html` (served at `/tr`) is the Turkish copy indexed by Google. After editing `index.html` or the Turkish strings in `script.js`, regenerate it with `python tests/tools/build_tr.py`.

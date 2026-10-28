@@ -68,9 +68,9 @@
       emailLabel: "Email"
     },
     tr: {
-      title: "Hamdi Can Ernalbantoğulları — QA Mühendisi & SDET",
+      title: "Hamdi Can Ernalbantoğulları — QA Mühendisi & SDET | Yazılım Testi ve Test Otomasyonu",
       metaDesc:
-        "Vestel'de 3+ yıl Smart TV yazılım testi deneyimine sahip QA Mühendisi. Python, Selenium, Pytest ve Playwright ile manuel, regresyon ve test otomasyonu.",
+        "Vestel'de 3+ yıl Smart TV yazılım testi deneyimine sahip QA Mühendisi ve SDET (yazılım test mühendisi). Python, Selenium, Pytest ve Playwright ile manuel, regresyon ve test otomasyonu. Türkiye.",
       ogTitle: "Hamdi Can Ernalbantoğulları — QA Mühendisi & SDET",
       ogDesc:
         "Vestel'de 3+ yıl Smart TV QA deneyimine sahip QA Mühendisi. Python, Selenium, Pytest ve Playwright ile test otomasyonu.",
@@ -131,8 +131,11 @@
     }
   };
 
-  var DEFAULT_LANGUAGE = "en";
   var root = document.documentElement;
+  // Each URL has its own language (/ = English, /tr = Turkish) so search
+  // engines can index both; the page starts in the language it was served in.
+  var DEFAULT_LANGUAGE = root.getAttribute("data-language") === "tr" ? "tr" : "en";
+  var LANGUAGE_PATHS = { en: "/", tr: "/tr" };
 
   function applyLanguage(language) {
     var strings = STRINGS[language];
@@ -178,7 +181,12 @@
 
   document.querySelectorAll("[data-lang]").forEach(function (button) {
     button.addEventListener("click", function () {
-      applyLanguage(button.getAttribute("data-lang"));
+      var language = button.getAttribute("data-lang");
+      applyLanguage(language);
+      // Keep the address bar on the matching language URL when served over http.
+      if (/^https?:$/.test(window.location.protocol) && window.history.replaceState) {
+        window.history.replaceState(null, "", LANGUAGE_PATHS[language] + window.location.hash);
+      }
     });
   });
 

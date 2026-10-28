@@ -57,4 +57,4 @@ The site is served as static assets by Cloudflare Pages through `wrangler.jsonc`
 
 ## Turkish page (SEO)
 
-`tr/index.html` is the Turkish copy indexed by Google. After editing `index.html` or the Turkish strings in `script.js`, regenerate it with `python tests/tools/build_tr.py`.
+`tr.html` (served at `/tr`) is the Turkish copy indexed by Google. After editing `index.html` or the Turkish strings in `script.js`, regenerate it with `python tests/tools/build_tr.py`.

@@ -132,10 +132,10 @@
   };
 
   var root = document.documentElement;
-  // Each URL has its own language (/ = English, /tr/ = Turkish) so search
+  // Each URL has its own language (/ = English, /tr = Turkish) so search
   // engines can index both; the page starts in the language it was served in.
   var DEFAULT_LANGUAGE = root.getAttribute("data-language") === "tr" ? "tr" : "en";
-  var LANGUAGE_PATHS = { en: "/", tr: "/tr/" };
+  var LANGUAGE_PATHS = { en: "/", tr: "/tr" };
 
   function applyLanguage(language) {
     var strings = STRINGS[language];

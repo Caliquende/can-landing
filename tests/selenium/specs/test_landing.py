@@ -303,6 +303,6 @@ def test_turkish_page_opens_in_turkish_with_seo_tags(driver):
     assert driver.find_element(By.TAG_NAME, "html").get_attribute("lang") == "tr"
     assert landing_data.LANGUAGE["turkish"]["title"].search(driver.title)
     canonical = driver.find_element(By.CSS_SELECTOR, "link[rel=canonical]")
-    assert canonical.get_attribute("href") == "https://can.is-a.dev/tr/"
+    assert canonical.get_attribute("href") == "https://can.is-a.dev/tr"
     hreflang_en = driver.find_element(By.CSS_SELECTOR, "link[hreflang=en]")
     assert hreflang_en.get_attribute("href") == "https://can.is-a.dev/"

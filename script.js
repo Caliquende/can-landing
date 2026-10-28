@@ -181,7 +181,8 @@
 
   document.querySelectorAll("[data-lang]").forEach(function (button) {
     button.addEventListener("click", function () {
-      var language = button.getAttribute("data-lang");
+      // The switch toggles on every press, whichever half is clicked.
+      var language = root.getAttribute("data-language") === "tr" ? "en" : "tr";
       applyLanguage(language);
       // Keep the address bar on the matching language URL when served over http.
       if (/^https?:$/.test(window.location.protocol) && window.history.replaceState) {
